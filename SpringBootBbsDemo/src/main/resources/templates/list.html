@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Welcome to example.com</title>
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap-theme.min.css}" />
+	<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h1 class="text-center">자료실형 게시판</h1>
+		
+		<table class="table">
+			<tr>
+				<td class="text-left">[<a th:href="@{write}">글쓰기</a>]</td>
+				<td class="text-right">(<span th:text="${boardlist.size()}"></span>)</td>
+			</tr>
+		</table>
+		<table class="table table-bordered">
+  			<thead>
+  				<tr class="success">
+  					<th class="text-center" style="width:10%">글번호</th>
+  					<th class="text-center" style="width:15%">작성자</th>
+  					<th class="text-center" style="width:40%">제목</th>
+  					<th class="text-center" style="width:10%">파일</th>
+  					<th class="text-center" style="width:15%">작성날짜</th>
+  					<th class="text-center" style="width:10%">조회수</th>
+  				</tr>
+  			</thead>
+  			<tbody th:if="${boardlist.size() eq 0}">
+  				<tr>
+					<td colspan="6" class="text-center danger">No Data</td>
+				</tr>
+  			</tbody>
+			<tbody th:unless="${boardlist.size() gt 0}">	
+  				<tr th:each="board : ${boardlist}">
+					<td class="text-center">${board.idx}</td>
+					<td class="text-center">
+						${board.name}
+					</td>
+					<td class="text-center">
+						<a href="#">${board.title}</a>
+					</td>
+					<td class="text-center">
+						<a href="#">${board.filename}</a>
+					</td>
+					<td class="text-center">${board.writedate}</td>
+					<td class="text-center">${board.readcount}</td>
+				</tr>
+  			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
